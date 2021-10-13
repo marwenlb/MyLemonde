@@ -1,5 +1,6 @@
 package com.marouene.mylemonde
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -78,30 +79,9 @@ class MainActivity : AppCompatActivity() {
      */
     private fun clickLemonImage() {
 
-if (lemonadeState==SELECT ){
-    lemonadeState==SQUEEZE
-    lemonSize=lemonTree.Pick()
-    squeezeCount=0
-}
-        if (lemonadeState==SQUEEZE ){
-            squeezeCount+=1
-            lemonSize-=1
-            if(lemonSize==0){
-                lemonadeState=DRINK
-                lemonSize= -1
-            }
-        }
-
-
-        if (lemonadeState==DRINK ){
-            lemonadeState=RESTART
-        }
-        if (lemonadeState==RESTART ){
-            lemonadeState=SELECT
-        }
         if (lemonadeState==SELECT ){
-            lemonadeState==SQUEEZE
-            lemonSize=lemonTree.Pick()
+            lemonadeState=SQUEEZE
+            lemonSize=lemonTree.pick()
             squeezeCount=0
         }else if(lemonadeState==SQUEEZE ){
             squeezeCount+=1
@@ -121,10 +101,28 @@ if (lemonadeState==SELECT ){
     /**
      * Set up the view elements according to the state.
      */
+    @SuppressLint("ResourceType")
     private fun setViewElements() {
         val textAction: TextView = findViewById(R.id.text_action)
-     when(lemonadeState=){}
-    
+
+        when(lemonadeState){
+
+            SELECT -> updateUi(R.string.lemon_select,R.drawable.lemon_tree)
+            SQUEEZE ->updateUi(R.string.lemon_squeeze,R.drawable.lemon_squeeze)
+            DRINK -> updateUi(R.string.lemon_drink,R.drawable.lemon_drink)
+            RESTART -> updateUi(R.string.lemon_empty_glass,R.drawable.lemon_restart)
+        }
+
+
+    }
+    private fun updateUi(displayText: Int,displayImage: Int){
+        val textAction: TextView = findViewById(R.id.text_action)
+        textAction.setText(displayText)
+        lemonImage?.setImageResource(displayImage)
+
+
+    }
+
 
     /**
      * === DO NOT ALTER THIS METHOD ===
